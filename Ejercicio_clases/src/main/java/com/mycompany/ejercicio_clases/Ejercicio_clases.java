@@ -21,6 +21,7 @@ public class Ejercicio_clases {
                                1) Clase cuadrado.
                                2) Clase triangulo.
                                3) Clase Rectangulo.
+                               4) Clase Operaciones.
                                0) Salir
                                
                                ******************************
@@ -124,6 +125,25 @@ public class Ejercicio_clases {
                                 
                             
                          System.out.print("Ingrese 0 para volver al menu anterior 1 para ingresar otro rectangulo:  ");
+                        opcase = teclado.nextInt();
+                        }while(opcase != 0 );
+                         break;
+                case 4:
+                    do{
+                         System.out.print("Ingrese un numero: ");
+                            int num = teclado.nextInt();
+                            
+                            boolean resultado = Operaciones.esPrimo(num);
+                            
+                            if(resultado){
+                                System.out.println("El numero es primo");
+                            }
+                            else{
+                                System.out.println("El numero no es primo");
+                            }
+                            
+                            
+                         System.out.print("Ingrese 0 para volver al menu anterior 1 para ingresar otra operacion:  ");
                         opcase = teclado.nextInt();
                         }while(opcase != 0 );
                          break;
