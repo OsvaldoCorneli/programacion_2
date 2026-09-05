@@ -9,9 +9,9 @@ public class Ejercicio_1 {
         int op;
         int option;
         String message_end = "Ingrese 0 para volver al menu anterior o 1 continuar:   ";
+        Scanner teclado = new Scanner(System.in);
         do {
-            Scanner teclado = new Scanner(System.in);
-            
+
             String main_menu = """
                            ************************
                            
@@ -30,7 +30,7 @@ public class Ejercicio_1 {
 
             System.out.print(main_menu + "\n Opcion: ");
             option = teclado.nextInt();
-            
+
             switch (option) {
 
                 case 0:
@@ -39,7 +39,7 @@ public class Ejercicio_1 {
                     do {
                         System.out.print("Ingrese un numero:  ");
                         int numero = teclado.nextInt();
-                        
+
                         if (numero % 2 == 0) {
                             System.out.println("Es par");
                         } else {
@@ -52,15 +52,17 @@ public class Ejercicio_1 {
                     break;
                 case 2:
                     do {
-                        System.out.print("Ingrese un numero:  ");
+                        System.out.print("Ingrese la posicion de Fibonacci que desea:  ");
                         int num = teclado.nextInt();
+
                         if (num == 1) {
-                            System.out.println("\n resultado es: " + 0);
+                            System.out.println("\n El resultado es: " + 0);
                         } else if (num == 2) {
-                            System.out.println("\n resultado es: " + 1);
-                        } else if (num == 0) {
+                            System.out.println("\n El resultado es: " + 1);
+                        } else if (num <= 0) {
                             System.out.println("\n Ingrese un numero mayor a 0");
                         } else {
+
                             int num1 = 0;
                             int num2 = 1;
                             int resultado = 0;
@@ -69,9 +71,7 @@ public class Ejercicio_1 {
                                 resultado = num1 + num2;
                                 num1 = num2;
                                 num2 = resultado;
-
                             }
-
                             System.out.println("\n El resultado es: " + resultado);
                         }
 
@@ -129,8 +129,8 @@ public class Ejercicio_1 {
 
                     } while (op != 0);
                     break;
-                    case 5:
-                        do {
+                case 5:
+                    do {
                         System.out.print("Ingrese el primer numero: ");
                         int num_1 = teclado.nextInt();
                         System.out.print("Ingrese el segundo numero: ");
@@ -138,52 +138,53 @@ public class Ejercicio_1 {
                         System.out.print("Ingrese el tercer numero: ");
                         int num_3 = teclado.nextInt();
 
-                        if((num_1 + num_2) == num_3){
-                            System.out.println("El numero 3 ("+num_3+") es igual a la suma de "+ num_1 + " y " + num_2);
-                        }
-                        else if((num_1 + num_3) == num_2){
-                            System.out.println("El numero 2 ("+num_2+") es igual a la suma de "+ num_1 + " y " + num_3);
-                        }
-                        else if((num_2 + num_3) == num_1){
-                            System.out.println("El numero 1 ("+num_1+") es igual a la suma de "+ num_2 + " y " + num_3);
-                        }
-                        else{
+                        if ((num_1 + num_2) == num_3) {
+                            System.out.println("El numero 3 (" + num_3 + ") es igual a la suma de " + num_1 + " y " + num_2);
+                        } else if ((num_1 + num_3) == num_2) {
+                            System.out.println("El numero 2 (" + num_2 + ") es igual a la suma de " + num_1 + " y " + num_3);
+                        } else if ((num_2 + num_3) == num_1) {
+                            System.out.println("El numero 1 (" + num_1 + ") es igual a la suma de " + num_2 + " y " + num_3);
+                        } else {
                             System.out.println("La suma de los numeros no es igual al otro numero. ");
                         }
-                       
+
                         System.out.print(message_end);
                         op = teclado.nextInt();
 
                     } while (op != 0);
+                    break;
                 case 6:
-                    do{
+                    do {
                         double metros = 1500.0;
                         int flag = 0;
                         int seg = -1;
 
                         System.out.print("Ingrese los minutos: ");
                         int min = teclado.nextInt();
-                      
-                        while (flag == 0){
-                             System.out.print("Ingrese los segundos 1 a 59: ");
+
+                        while (flag == 0) {
+                            System.out.print("Ingrese los segundos 1 a 59: ");
                             seg = teclado.nextInt();
-                            if(seg > 0 && seg < 60){
+                            if (seg > 0 && seg < 60) {
                                 flag = 1;
                             }
                         }
 
-                        double velocidad = (metros/ ((min * 60) + seg));
+                        double velocidad = (metros / ((min * 60) + seg));
 
                         System.out.println(String.format("La velocidad del corredor fue: %.2f m/s", velocidad));
 
-                        
                         System.out.println(message_end);
                         op = teclado.nextInt();
-                    }while (op != 0);
+                    } while (op != 0);
+                    break;
                 default:
                     System.out.print("Opcion incorrecta");
+                    break;
             }
-         
-        }while(option!=0);
-    // fin
-}}
+
+        } while (option != 0);
+        teclado.close();
+        // fin
+    }
+}
