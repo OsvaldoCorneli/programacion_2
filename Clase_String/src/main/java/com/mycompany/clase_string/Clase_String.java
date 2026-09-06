@@ -256,22 +256,22 @@ public class Clase_String {
 
     public static int cantidadVocales(String cadena) {
         int contador = 0;
-        String[] cadenaDividida = cadena.split("");
-        for (int i = 0; i < cadenaDividida.length; i++) {
-            switch (cadenaDividida[i].toLowerCase()) {
-                case "a":
+        for (int i = 0; i < cadena.length(); i++) {
+            char palabra = cadena.charAt(i);
+            switch (Character.toLowerCase(palabra)){
+                case 'a':
                     contador++;
                     break;
-                case "e":
+                case 'e':
                     contador++;
                     break;
-                case "i":
+                case 'i':
                     contador++;
                     break;
-                case "o":
+                case 'o':
                     contador++;
                     break;
-                case "u":
+                case 'u':
                     contador++;
                     break;
                 default:
@@ -282,68 +282,29 @@ public class Clase_String {
     }
 
     public static String eliminarEspacios(String cadena) {
-        int contador = 0;
-        int indice = 0;
-        String[] cadDiv = cadena.split("");
-        for (int i = 0; i < cadDiv.length; i++) {
-            if (!cadDiv[i].isBlank()) {
-                contador++;
-            }
-        }
-        String[] nuevaCad = new String[contador];
-        for (int i = 0; i < cadDiv.length; i++) {
-            if (!cadDiv[i].isBlank()) {
-                nuevaCad[indice] = cadDiv[i];
-                indice++;
-            }
-        }
-        String nuevaCadString = String.join("", nuevaCad);
-        return nuevaCadString;
+       return String.join("",cadena.split(" ")); 
     }
 
     public static String cadenaEspejo(String cadena) {
-        String[] palabraDiv = cadena.split("");
-        int tamano = (palabraDiv.length * 2) - 1;
-        String[] nuevaPalabra = new String[tamano];
-        int indice = 0;
-        for (int i = 0; i < palabraDiv.length; i++) {
-            nuevaPalabra[i] = palabraDiv[i];
-            if (i == (palabraDiv.length) - 1) {
-                indice = i;
-            }
-        }
-        int indices = 0;
-        for (int i = nuevaPalabra.length - 1; i > indice; i--) {
-            nuevaPalabra[i] = palabraDiv[indices];
-            indices++;
-        }
-        String palabra = String.join("", nuevaPalabra);
-        return palabra;
+       String nuevaCadena = cadena;
+       for(int i=cadena.length()-2; i>=0;i--){
+           nuevaCadena = nuevaCadena + cadena.charAt(i);
+       }
+       return nuevaCadena;
     }
 
     public static String mayusculaPalabra(String oracion, String palabra) {
-        String[] palabrasDiv = oracion.split(" ");
-        for (int i = 0; i < palabrasDiv.length; i++) {
-            if (palabrasDiv[i].equalsIgnoreCase(palabra)) {
-                palabrasDiv[i] = palabrasDiv[i].toUpperCase();
-                break;
-            }
-        }
-
-        String nuevaOracion = String.join(" ", palabrasDiv);
-        return nuevaOracion;
+       return oracion.replace(palabra, palabra.toUpperCase());
     }
 
     public static String invertirCadena(String cadena) {
-        String[] cadenaDiv = cadena.split("");
-        String[] nuevaCadDiv = new String[cadenaDiv.length];
-        int indice = 0;
-        for (int i = cadenaDiv.length - 1; i >= 0; i--) {
-            nuevaCadDiv[indice] = cadenaDiv[i];
-            indice++;
-        }
-        String nueva = String.join("", nuevaCadDiv);
-        return nueva;
+       String invertida = "";
+       
+       for(int i=cadena.length()-1; i>=0; i--){
+           invertida = invertida+cadena.charAt(i);
+       }
+       
+       return invertida;
     }
 
     public static int contarCaracter(String cadena, String caracter) {
