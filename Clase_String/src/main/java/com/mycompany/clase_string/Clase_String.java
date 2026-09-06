@@ -26,6 +26,7 @@ public class Clase_String {
                                   4) Ejercicio 4(Cuenta el número de vocales).
                                   5) Ejercicio 5(eliminando los espacios en blanco).
                                   6) Ejercicio 6(devuelve invertida con efecto espejo)
+                                  7) Ejercicio 7(transformando en mayúsculas la segunda cadena introducida)
                                   0) Salir.
                                   
                                   **************************
@@ -49,7 +50,7 @@ public class Clase_String {
                         int cantidad = cadena.length();
                         boolean comienza = false;
 
-                        if (cadena.toLowerCase().startsWith("a") ) {
+                        if (cadena.toLowerCase().startsWith("a")) {
                             comienza = true;
                         }
 
@@ -121,7 +122,6 @@ public class Clase_String {
                         System.out.println("***************************************************");
                         System.out.println(cadena);
                         System.out.println("***************************************************\n");
-
                     } while (menuEjercicio());
                     break;
                 case 4:
@@ -130,7 +130,6 @@ public class Clase_String {
                         String cadena = teclado.nextLine();
                         int cantidadVocales = cantidadVocales(cadena);
                         System.out.println("La cantidad de vocales son: " + cantidadVocales);
-
                     } while (menuEjercicio());
                     break;
                 case 5:
@@ -138,20 +137,39 @@ public class Clase_String {
                         System.out.println("Ingrese una cadena: ");
                         String cadena = teclado.nextLine();
                         String resultado = eliminarEspacios(cadena);
+                        System.out.println(resultado);
+                    } while (menuEjercicio());
+                    break;
+                case 6:
+                    do {
+                        System.out.println("Ingrese una palabra: ");
+                        String palabra = teclado.nextLine();
+                        String resultado = invertirCadena(palabra);
+                        System.out.println(resultado);
+                    } while (menuEjercicio());
+                    break;
+                case 7:
+                    do {
+                        System.out.println("Ingrese una oracion:  ");
+                        String oracion = teclado.nextLine();
+                        String palabra;
+                        boolean flag = false;
+                        do{
+                        System.out.println("Ingrese una palabra de la oracion:  ");
+                        palabra = teclado.nextLine();
+                        if(oracion.toLowerCase().contains(palabra.toLowerCase())){
+                            flag = true;
+                        }else{
+                            System.out.println("La oracion no contiene la palabra. ");
+                        }
+                            
+                        }while(!flag);
                         
+                        String resultado = mayusculaPalabra(oracion, palabra);
                         System.out.println(resultado);
 
                     } while (menuEjercicio());
                     break;
-                case 6:
-                    do{
-                        System.out.println("Ingrese una palabra: ");
-                        String palabra = teclado.nextLine();
-                        
-                        String resultado = invertirCadena(palabra);
-                        
-                        
-                    }while(menuEjercicio());
                 default:
                     //Opciones incorrectas
                     System.out.println("####### la opcion ingresada no es correcta. ######\n");
@@ -205,11 +223,9 @@ public class Clase_String {
     }
 
     public static String eliminarEspacios(String cadena) {
-
         int contador = 0;
         int indice = 0;
         String[] cadDiv = cadena.split("");
-
         for (int i = 0; i < cadDiv.length; i++) {
             if (!cadDiv[i].isBlank()) {
                 contador++;
@@ -225,13 +241,39 @@ public class Clase_String {
         String nuevaCadString = String.join("", nuevaCad);
         return nuevaCadString;
     }
-    
-    public static String invertirCadena(String cadena){
-        
-        
-        return "cadena";
+
+    public static String invertirCadena(String cadena) {
+        String[] palabraDiv = cadena.split("");
+        int tamano = (palabraDiv.length * 2) - 1;
+        String[] nuevaPalabra = new String[tamano];
+        int indice = 0;
+        for (int i = 0; i < palabraDiv.length; i++) {
+            nuevaPalabra[i] = palabraDiv[i];
+            if (i == (palabraDiv.length) - 1) {
+                indice = i;
+            }
+        }
+        int indices = 0;
+        for (int i = nuevaPalabra.length - 1; i > indice; i--) {
+            nuevaPalabra[i] = palabraDiv[indices];
+            indices++;
+        }
+        String palabra = String.join("", nuevaPalabra);
+        return palabra;
     }
-    
-    
+
+    public static String mayusculaPalabra(String oracion, String palabra) {
+        String[] palabrasDiv = oracion.split(" ");
+        for (int i = 0; i < palabrasDiv.length; i++) {
+            if (palabrasDiv[i].equalsIgnoreCase(palabra)) {
+                palabrasDiv[i] = palabrasDiv[i].toUpperCase();
+                break;
+            }
+        }
+     
+        String nuevaOracion = String.join(" ", palabrasDiv);
+        return nuevaOracion;
+    }
+
     //Fin class
 }
