@@ -32,6 +32,8 @@ public class Clase_String {
                                   10) Ejercicio 10(Dividir cadena)
                                   11) Ejercicio 11(String con un carácter separador "-")
                                   12) Ejercicio 12(Imprimir la palabra con el mayor numero de caracteres)
+                                  13) Ejercicio 13(Sustituir todos los espacios por asteriscos)
+                                  14) Ejercicio 14(Convertir fecha)
                                   0) Salir.
                                   
                                   **************************
@@ -41,7 +43,7 @@ public class Clase_String {
         do {
             int menuEjercicio = -1;
             System.out.println(mensajePrincipal);
-            System.out.print("Elegi una opcion:  ");
+            System.out.print("Ingrese una opcion:  ");
             opcionMenu = teclado.nextInt();
             teclado.nextLine();
             switch (opcionMenu) {
@@ -195,20 +197,51 @@ public class Clase_String {
                                 System.out.println("Debe ingresar un solo caracter.\n");
                             }
                         } while (!flag);
-                        int resultado = contarCaracter(cadena, caracter);
-                        System.out.printf("El carácter '%s' se repite %d veces\n", caracter, resultado);
+                        char charCaracter = caracter.charAt(0);
+                        int resultado = contarCaracter(cadena, charCaracter);
+                        System.out.printf("El carácter '%s' se repite %d veces\n", charCaracter, resultado);
                     } while (menuEjercicio());
                     break;
                 case 10:
                     do {
                         System.out.println("Ingrese una cadena:  ");
                         String caracter = teclado.nextLine();
-                        String[] resultado = dividirCaracter(caracter);
+                        String resultado = dividirCaracter(caracter);
 
-                        if (resultado.length > 0) {
-                            for (int i = 0; i < resultado.length; i++) {
-                                System.out.println(resultado[i]);
+                        System.out.println("""
+                                           *************
+                                           Menu:
+                                           1) ArrayList
+                                           2) String
+                                           ************
+                                           """);
+                        System.out.print("Ingrese una opcion:  ");
+                        int opc = teclado.nextInt();
+
+                        if (opc == 1) {
+                            String[] caracterSplit = resultado.split("&y&");
+                            for (int i = 0; i < caracterSplit.length; i++) {
+                                System.out.println(caracterSplit[i]);
                             }
+                        } else if (opc == 2) {
+                            String frase1 = "";
+                            String frase2 = "";
+                            boolean flag = false;
+                            for (int i = 0; i < resultado.length(); i++) {
+                                if (resultado.charAt(i) == '&' && resultado.charAt(i + 1) == 'y' && resultado.charAt(i + 2) == '&') {
+                                    flag = true;
+                                    i = i + 3;
+                                }
+                                if (!flag) {
+                                    frase1 = frase1 + resultado.charAt(i);
+                                } else {
+                                    frase2 = frase2 + resultado.charAt(i);
+                                }
+                            }
+                            System.out.println(frase1);
+                            System.out.println(frase2);
+                        } else {
+                            System.out.println("###### La opcion ingresada es incorrecta. ######");
                         }
 
                     } while (menuEjercicio());
@@ -226,7 +259,33 @@ public class Clase_String {
                         System.out.println("Ingrese una frase:  ");
                         String frase = teclado.nextLine();
                         String resultado = palabraMayorLongitud(frase);
-                        System.out.printf("La palabra con mayor cantidad de caracteres es %s con %d.\n",resultado,resultado.length());
+                        System.out.printf("La palabra con mayor cantidad de caracteres es %s con %d.\n", resultado, resultado.length());
+                    } while (menuEjercicio());
+                    break;
+                case 13:
+                    do {
+                        System.out.println("Ingrese una cadena:  ");
+                        String caracter = teclado.nextLine();
+                        String resultado = sustituirEspacios(caracter);
+                        System.out.println(resultado);
+                    } while (menuEjercicio());
+                    break;
+                case 14:
+                    do {
+                        boolean flag = false;
+                        String fecha;
+                        do {
+                            System.out.print("Ingresar una fecha con el siguiente formato dd/mm/aaaa:  ");
+                            fecha = teclado.nextLine();
+                            if (verificarFecha(fecha)) {
+                                flag=true;
+                            }
+                            else{
+                                System.out.println("Formato de fecha o fecha incorrecta. ");
+                            }
+                        } while (!flag);
+                        String resultado = formatoFecha(fecha);
+                        System.out.println(resultado);
                     } while (menuEjercicio());
                     break;
                 default:
@@ -258,7 +317,7 @@ public class Clase_String {
         int contador = 0;
         for (int i = 0; i < cadena.length(); i++) {
             char palabra = cadena.charAt(i);
-            switch (Character.toLowerCase(palabra)){
+            switch (Character.toLowerCase(palabra)) {
                 case 'a':
                     contador++;
                     break;
@@ -282,51 +341,44 @@ public class Clase_String {
     }
 
     public static String eliminarEspacios(String cadena) {
-       return String.join("",cadena.split(" ")); 
+        return String.join("", cadena.split(" "));
     }
 
     public static String cadenaEspejo(String cadena) {
-       String nuevaCadena = cadena;
-       for(int i=cadena.length()-2; i>=0;i--){
-           nuevaCadena = nuevaCadena + cadena.charAt(i);
-       }
-       return nuevaCadena;
+        String nuevaCadena = cadena;
+        for (int i = cadena.length() - 2; i >= 0; i--) {
+            nuevaCadena = nuevaCadena + cadena.charAt(i);
+        }
+        return nuevaCadena;
     }
 
     public static String mayusculaPalabra(String oracion, String palabra) {
-       return oracion.replace(palabra, palabra.toUpperCase());
+        return oracion.replace(palabra, palabra.toUpperCase());
     }
 
     public static String invertirCadena(String cadena) {
-       String invertida = "";
-       
-       for(int i=cadena.length()-1; i>=0; i--){
-           invertida = invertida+cadena.charAt(i);
-       }
-       
-       return invertida;
+        String invertida = "";
+        for (int i = cadena.length() - 1; i >= 0; i--) {
+            invertida = invertida + cadena.charAt(i);
+        }
+        return invertida;
     }
 
-    public static int contarCaracter(String cadena, String caracter) {
+    public static int contarCaracter(String cadena, char caracter) {
         int contador = 0;
-        boolean flag = false;
-        String[] cadenaDiv = cadena.split("");
-        for (int i = 0; i < cadenaDiv.length; i++) {
-            if (cadenaDiv[i].equalsIgnoreCase(caracter)) {
+
+        for (int i = 0; i < cadena.length(); i++) {
+            if (cadena.charAt(i) == caracter) {
                 contador++;
-                if (!flag)flag = true;
             }
         }
-        if (!flag) return 0;
         return contador;
     }
 
-    public static String[] dividirCaracter(String caracter) {
-        int tamano = 0;
-        String[] nuevoSplit = new String[2];
-        nuevoSplit[0] = caracter.substring(0, Math.round(caracter.length() / 2));
-        nuevoSplit[1] = caracter.substring(Math.round(caracter.length() / 2), caracter.length());
-        return nuevoSplit;
+    public static String dividirCaracter(String caracter) {
+        String mitad1 = caracter.substring(0, Math.round(caracter.length() / 2));
+        String mitad2 = caracter.substring(Math.round(caracter.length() / 2), caracter.length());
+        return mitad1 + "&y&" + mitad2;
     }
 
     public static String separarCaracteresGuion(String caracter) {
@@ -334,17 +386,147 @@ public class Clase_String {
     }
 
     public static String palabraMayorLongitud(String frase) {
-        String[] fraseDiv = frase.split(" ");
-        int mayor = 0;
+        int contador = 0;
+        int indice = 0;
+        boolean flag = false;
         String palabra = "";
-        for(int i = 0; i<fraseDiv.length; i++){
-            if(fraseDiv[i].length()>mayor){
-                mayor = fraseDiv[i].length();
-                palabra = fraseDiv[i];
+        String palabraMax = "";
+        int contadorMax = 0;
+        frase = frase.trim();
+        for (int i = 0; i < frase.length(); i++) {
+            if (frase.charAt(i) == ' ') {
+                flag = true;
+            }
+            if (!flag) {
+                palabra = palabra + frase.charAt(i);
+                contador++;
+            }
+            if (contador > contadorMax) {
+                palabraMax = palabra;
+                contadorMax = contador;
+            }
+            if (flag) {
+                palabra = "";
+                contador = 0;
+                flag = false;
             }
         }
-        
-        return palabra;
+        return palabraMax;
     }
+
+    public static String sustituirEspacios(String caracter) {
+        return String.join("*", caracter.split(" "));
+    }
+
+    public static String formatoFecha(String fecha) {
+        String dia = fecha.substring(0, 2);
+        String mes = fecha.substring(3, 5);
+        String anio = fecha.substring(6,10);
+        String fechaFinal = "";
+        switch (mes) {
+            case "01":
+                fechaFinal = String.format("%s de Enero de %s", dia, anio);
+                break;
+            case "02":
+                fechaFinal = String.format("%s de Febrero de %s", dia, anio);
+                break;
+            case "03":
+                fechaFinal = String.format("%s de Marzo de %s", dia, anio);
+                break;
+            case "04":
+                fechaFinal = String.format("%s de Abril de %s", dia, anio);
+                break;
+            case "05":
+                fechaFinal = String.format("%s de Mayo de %s", dia, anio);
+                break;
+            case "06":
+                fechaFinal = String.format("%s de Junio de %s", dia, anio);
+                break;
+            case "07":
+                fechaFinal = String.format("%s de Julio de %s", dia, anio);
+                break;
+            case "08":
+                fechaFinal = String.format("%s de Agosto de %s", dia, anio);
+                break;
+            case "09":
+                fechaFinal = String.format("%s de Septiembre de %s", dia, anio);
+                break;
+            case "10":
+                fechaFinal = String.format("%s de Octumbre de %s", dia, anio);
+                break;
+            case "11":
+                fechaFinal = String.format("%s de Noviembre de %s", dia, anio);
+                break;
+            case "12":
+                fechaFinal = String.format("%s de Diciembre de %s", dia, anio);
+                break;
+        }
+        return fechaFinal;
+    }
+
+    public static boolean verificarFecha(String fecha) {
+        boolean verificar = false;
+        if (fecha.length() != 10) {
+            return false;
+        }
+        if (fecha.charAt(2) != '/' && fecha.charAt(5) != '/') {
+            return false;
+        }
+        for (int i = 0; i < fecha.length(); i++) {
+            if (fecha.charAt(i) == '/') {
+                continue;
+            }
+            if (!Character.isDigit(fecha.charAt(i))) {
+                return false;
+            }
+        }
+
+        int dia = Integer.parseInt(fecha.substring(0, 2));
+        int mes = Integer.parseInt(fecha.substring(3, 5));
+
+        switch (mes) {
+            case 1:
+                verificar = dia <= 31;
+                break;
+            case 2:
+                verificar = dia <= 29;
+                break;
+            case 3:
+                verificar = dia <= 31;
+                break;
+            case 4:
+                verificar = dia <= 30;
+                break;
+            case 5:
+                verificar = dia <= 31;
+                break;
+            case 6:
+                verificar = dia <= 30;
+                break;
+            case 7:
+                verificar = dia <= 31;
+                break;
+            case 8:
+                verificar = dia <= 31;
+                break;
+            case 9:
+                verificar = dia <= 30;
+                break;
+            case 10:
+                verificar = dia <= 31;
+                break;
+            case 11:
+                verificar = dia <= 30;
+                break;
+            case 12:
+                verificar = dia <= 31;
+                break;
+            default:
+                break;
+        }
+
+        return verificar;
+    }
+
     //Fin class
 }
